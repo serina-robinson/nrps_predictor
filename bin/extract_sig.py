@@ -3,8 +3,8 @@ import os
 import sys
 from typing import Any, Dict, List, Set
 
-from antismash.common import path, subprocessing
-from antismash.common.secmet import AntismashDomain
+from antismash.common import path, subprocessing, fasta
+from antismash.common.secmet import AntismashDomain, FeatureLocation
 from antismash.config import ConfigType
 from antismash.modules import nrps_pks
 from antismash.modules.nrps_pks.nrps_predictor import build_position_list, read_positions, extract, verify_good_sequence
@@ -43,6 +43,25 @@ def get_34_aa_signature(domain: AntismashDomain) -> str:
 
     return extract(domain_alignment, poslist)
 
-if __name__ == '__main__':
+def main():
+    domain = AntismashDomain(FeatureLocation(1, 3, 1), tool="test") 
+    print(get_34_aa_signature(domain))
+    # domain.translation = "MVEDCPTHIME"
+    # domain.domain_subtype = "subtest"
+    # domain.specificity = ["a", "c", "f"]
+    # domain.asf.add("first")
+    # domain.asf.add("second")
+    # bio = domain.to_biopython()
+    # new_domain = AntismashDomain.from_biopython(bio[0])
+    # print(new_domain.translation())
 
-	# signatures = [get_34_aa_signature(a_domain) for a_domain in a_domains]
+if __name__ == '__main__':
+    main()
+    
+# # with open(input_filename, "w") as handle:
+# #             for sig, domain in zip(signatures, a_domains):
+# #                 handle.write("%s\t%s\n" % (sig, domain.get_name()))
+# #             with open(output_filename) as handle:
+# #             lines = handle.read().splitlines()[1:] 
+# #             return read_output(lines)
+# # signatures = [get_34_aa_signature(a_domain) for a_domain in a_domains]
